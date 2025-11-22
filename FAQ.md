@@ -1,99 +1,70 @@
-# Frequently Asked Questions (FAQ)
+# Часто задаваемые вопросы (FAQ)
 
-## Q: Why does the login fail with "NetworkError when attempting to fetch resource"?
+## 1. Почему я не могу зарегистрироваться или войти в систему?
 
-**A**: This error occurs because the frontend application is trying to connect to a backend API server, but GitHub Pages is a static hosting service that cannot handle API requests directly. To fix this:
+**Проблема:** При попытке зарегистрироваться или войти в систему появляется ошибка "Login failed: NetworkError when attempting to fetch resource".
 
-1. Deploy a backend server that implements the required API endpoints, OR
-2. Run the example backend locally for testing:
-   - Install dependencies: `pip install fastapi uvicorn python-multipart`
-   - Run the backend: `uvicorn example_backend:app --reload`
-   - The backend will run on `http://localhost:8000`
+**Решение:** Эта ошибка означает, что приложение не может подключиться к backend-серверу для аутентификации. GitHub Pages - это статический хостинг, который не может обрабатывать API-запросы. Вам нужно:
 
-3. Configure the API URL in the frontend application:
-   - Go to your deployed GitHub Pages site (or local frontend)
-   - Find the "API Configuration" section
-   - Enter your backend server URL (e.g., `http://localhost:8000` for local, or `https://your-backend.herokuapp.com` for deployed)
-   - Click "Save URL"
-4. Now you can register/login and use the application
+1. **Настроить backend-сервер** (например, на Render.com, Heroku или другом хостинге)
+2. **Ввести URL вашего backend** в разделе "API Configuration"
+3. **Нажать "Save URL"**
+4. **Теперь вы сможете регистрироваться и входить в систему**
 
-## Q: Where can I find the backend implementation?
+## 2. Как быстро настроить backend-сервер?
 
-**A**: This repository contains only the frontend. You'll need to implement or deploy a backend server separately. An example backend implementation is provided in `example_backend.py` in this repository.
+Самый простой способ - использовать Render.com:
 
-## Q: How do I deploy the frontend to GitHub Pages?
+1. Зарегистрируйтесь на [https://render.com](https://render.com)
+2. Создайте "Web Service" и подключите ваш GitHub репозиторий
+3. Укажите Environment: `Docker`, Branch: `main`
+4. После деплоя скопируйте URL (например, `https://your-project.onrender.com`)
+5. Введите этот URL в разделе "API Configuration" на вашем сайте GitHub Pages
 
-**A**: Follow these steps:
+## 3. Какие API-эндпоинты необходимы?
 
-1. Push this code to a GitHub repository
-2. Go to repository Settings → Pages
-3. Select source as "Deploy from a branch"
-4. Choose the `main` branch and `/` (root) folder (or `/docs` if you move files there)
-5. Save settings and wait for deployment
-6. The site will be available at `https://<username>.github.io/<repository-name>`
+Ваш backend должен поддерживать следующие эндпоинты:
 
-## Q: What are the required backend API endpoints?
+- `POST /auth/register` - Регистрация пользователя
+- `POST /auth/login` - Вход пользователя
+- `GET /books/` - Получить все книги
+- `POST /books/` - Добавить книгу
+- `GET /readers/` - Получить всех читателей
+- `POST /readers/` - Добавить читателя
+- `POST /borrows/borrow` - Выдать книгу
+- `POST /borrows/return` - Вернуть книгу
+- `GET /borrows/reader/{reader_id}/borrowed` - Книги, взятые читателем
+- `GET /borrows/borrowed` - Все выданные книги
 
-**A**: Your backend must implement these endpoints:
+## 4. Что делать, если все еще вижу ошибку после настройки API?
 
-- `POST /auth/register` - User registration
-- `POST /auth/login` - User login
-- `GET /books/` - Get all books
-- `POST /books/` - Add a new book
-- `GET /readers/` - Get all readers
-- `POST /readers/` - Add a new reader
-- `POST /borrows/borrow` - Borrow a book
-- `POST /borrows/return` - Return a book
-- `GET /borrows/reader/{reader_id}/borrowed` - Get borrowed books for a reader
-- `GET /borrows/borrowed` - Get all borrowed books
+Проверьте следующее:
 
-## Q: Do I need to run the backend server locally?
+1. **URL backend введен правильно** (без слэша в конце)
+2. **Backend-сервер запущен** и доступен по сети
+3. **CORS настроен** на backend для вашего домена GitHub Pages
+4. **Попробуйте очистить localStorage** браузера и ввести URL снова
 
-**A**: You can run the backend server locally for development, but for the GitHub Pages frontend to access it, you need to either:
+## 5. Можно ли использовать приложение без backend?
 
-1. Run both frontend and backend on localhost (use the script in `start_server.py` for frontend)
-2. Deploy the backend to a publicly accessible server and configure the URL in the frontend
+Приложение будет загружаться на GitHub Pages, но функции регистрации, входа, добавления книг и т.д. не будут работать без backend-сервера. Это статический интерфейс, который требует API для полной функциональности.
 
-## Q: How do I test the application locally?
+## 6. Как проверить, что backend работает?
 
-**A**: You can test locally in two ways:
+Откройте `https://your-backend-url.onrender.com/docs` - вы должны увидеть интерактивную документацию API. Если она открывается, значит backend работает корректно.
 
-1. **Frontend only**: Run `python start_server.py` to start a local server for the frontend
-2. **Full application**: 
-   - Run the backend server: `uvicorn example_backend:app --reload`
-   - Run the frontend server: `python start_server.py`
-   - Configure the API URL in the frontend to point to your backend (e.g., `http://localhost:8000`)
+## 7. Где хранятся мои данные?
 
-## Q: What about CORS (Cross-Origin Resource Sharing)?
+Если вы используете предоставленный пример backend, данные хранятся в памяти и будут сброшены при перезапуске сервера. Для постоянного хранения данных используйте базу данных в продакшене.
 
-**A**: When running frontend and backend on different ports or domains, you need to configure CORS in your backend to allow requests from your frontend domain. For GitHub Pages, your backend should allow requests from `https://yourusername.github.io`.
+## 8. Как изменить URL backend после сохранения?
 
-## Q: Can I use this frontend without a backend?
+Вы можете изменить URL backend в любое время через раздел "API Configuration" на сайте или очистить localStorage браузера, чтобы сбросить сохраненный URL.
 
-**A**: The frontend will load and display the UI, but all interactive features (authentication, book management, etc.) require a backend API to function. You need to connect to a backend to use the full functionality.
+## 9. Где взять пример backend-сервера?
 
-## Q: Where are my credentials and API URL stored?
+Пример backend-сервера находится в файле `example_backend.py` в этом репозитории. Он реализует все необходимые эндпоинты и готов к деплою.
 
-**A**: The application stores your API URL and authentication token in the browser's localStorage. This means:
-- The settings persist between browser sessions
-- They are specific to each browser/device
-- Clearing browser data will remove these settings
-- You'll need to reconfigure the API URL and log in again after clearing data
+## 10. Почему нужен отдельный backend, если frontend уже на GitHub Pages?
 
-## Q: How do I reset the application settings?
-
-**A**: To reset the API URL and clear authentication:
-1. Open browser developer tools (F12)
-2. Go to the Application/Storage tab
-3. Find and clear the localStorage entries for the site
-4. Refresh the page
-
-## Q: What if I get a "Failed to fetch" error?
-
-**A**: This usually means:
-1. The backend server is not running
-2. The configured API URL is incorrect
-3. Network issues preventing connection
-4. CORS issues if running on different domains/ports
-
-Check that your backend is running and accessible, and that the API URL is correctly configured in the frontend.
+GitHub Pages может отдавать только статические файлы (HTML, CSS, JavaScript), но не может обрабатывать API-запросы, хранить данные или выполнять серверную логику. Для аутентификации и управления данными требуется отдельный сервер.

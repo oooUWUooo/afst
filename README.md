@@ -2,12 +2,16 @@
 
 This is a frontend-only demo of the Library Management System that can be deployed on GitHub Pages. It connects to a backend API to provide full functionality for managing books, readers, and borrowing operations.
 
+**⚠️ ВАЖНО: Для полноценной работы приложения требуется отдельный backend-сервер.**
+
 ## Quick Start
 
 If you want to quickly test the application functionality:
 
 1. **For immediate testing**: Follow the [Quick Start Guide](QUICK_START.md) to run both frontend and backend locally
 2. **For deployment**: Deploy the frontend to GitHub Pages and backend to a separate server
+3. **For beginners**: Follow the [Setup Instructions](SETUP_INSTRUCTIONS.md) for a step-by-step guide to get the system running quickly
+4. **Для русскоязычных пользователей**: См. [Быстрый старт на русском языке](QUICK_START_RU.md) для подробных инструкций на русском языке
 
 ## Features
 
