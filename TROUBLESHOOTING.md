@@ -6,7 +6,21 @@
 
 This error occurs because the frontend application needs to connect to a backend API server, but GitHub Pages is a static hosting service that cannot handle API requests directly.
 
-#### Solution:
+#### **QUICK SOLUTION:**
+
+1. **Deploy the example backend to Render.com** (free tier):
+   - Create an account at [https://render.com](https://render.com)
+   - Create a new "Web Service" and connect your GitHub repository
+   - Set Environment to `Docker`, Branch to `main`
+   - After deployment, you'll get a URL like `https://your-project.onrender.com`
+
+2. **Configure the API URL in your deployed frontend**:
+   - Go to your GitHub Pages site
+   - In the "API Configuration" section, enter your backend URL from Render
+   - Click "Save URL"
+   - Now you can register and login to use all features
+
+#### **Detailed Solution:**
 
 1. **Deploy a Backend API Server**: You need to have a separate backend service that handles authentication and data operations. This can be:
    - A server running on a cloud platform (AWS, Google Cloud, Azure, etc.)
