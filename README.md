@@ -123,49 +123,40 @@ Protected endpoints include all book and reader management operations, as well a
 
 ### Initial Setup
 
-After starting the application, you'll need to register the first librarian user through the `/auth/register` endpoint. Once registered, you can log in via `/auth/login` to obtain a JWT token for accessing protected endpoints.
+After starting the application, you can use the following pre-created admin account to access the system:
+
+**Admin Credentials:**
+- Email: admin@example.com
+- Password: admin123
+
+Alternatively, you can register a new user through the `/auth/register` endpoint. Once registered, you can log in via `/auth/login` to obtain a JWT token for accessing protected endpoints.
 
 ### Web Dashboard
 
 The application includes a web-based dashboard for easier interaction with the API. After starting the application, navigate to `http://localhost:8000/dashboard` to access the user-friendly interface for managing books, readers, and borrowing operations.
 
-## GitHub Pages Demo
+## Using the GitPages Panel
 
-A frontend-only version of the dashboard is available for deployment on GitHub Pages. This static version can connect to any backend API instance and provides the same functionality without requiring server-side deployment.
+The frontend for this application is deployed to GitHub Pages at `https://ooouwuooo.github.io/afst/`. To use the GitPages panel with your backend:
 
-### Deployment to GitHub Pages
+1. Navigate to `https://ooouwuooo.github.io/afst/`
+2. In the API Configuration section, enter your backend API URL (e.g., `https://your-backend-url.com` or `http://localhost:8000` for local development)
+3. Click "Save URL"
+4. Use the login credentials provided below to access the admin panel:
+   - Email: admin@example.com
+   - Password: admin123
+5. After successful login, you'll have full access to the library management system
 
-There are two ways to deploy the frontend to GitHub Pages:
+**Note:** For the GitPages version to work properly, your backend API must be accessible from the internet and have proper CORS configuration to allow requests from the GitHub Pages domain.
 
-**Method 1: Using GitHub Actions (Recommended)**
-1. The repository already includes a GitHub Actions workflow in `.github/workflows/deploy.yml`
-2. Push your code to the main branch
-3. Go to repository Settings -> Pages
-4. Select source as "Deploy from a branch" and choose `gh-pages` branch
-5. The site will be available at `https://<username>.github.io/<repository-name>`
+### Local Development with GitPages Frontend
 
-**Method 2: Manual Deployment**
-1. Push the code in the `/docs` directory to your GitHub repository
-2. Go to repository Settings -> Pages
-3. Select source as your main branch with `/docs` folder
-4. The site will be available at `https://<username>.github.io/<repository-name>`
-
-The GitHub Pages version includes:
-- Responsive design with Bootstrap 5
-- Modern UI with Font Awesome icons
-- Dashboard statistics
-- API URL configuration
-- Full library management functionality
-
-### Local Testing
-
-To test the GitHub Pages version locally, use the provided script:
-
+If you want to run the frontend locally for development:
 ```bash
 python local_test_server.py
 ```
 
-This will start a local server at http://localhost:8000 to serve the frontend files from the `/docs` directory.
+This will serve the frontend files from the `/docs` directory at `http://localhost:8000`, where you can connect to your backend API.
 
 ## Additional Feature Proposal
 
