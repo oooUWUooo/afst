@@ -57,6 +57,10 @@ You can test the API endpoints directly by visiting:
 - `http://localhost:8000/docs` - Interactive API documentation
 - `http://localhost:8000/redoc` - Alternative API documentation
 
+## CORS Configuration
+
+The example backend includes CORS middleware to allow requests from different origins. This is important when running the frontend and backend on different ports or domains. The example backend allows all origins for development purposes, but in production you should specify specific domains.
+
 ## Important Notes
 
 ⚠️ **This is a demonstration backend only**:

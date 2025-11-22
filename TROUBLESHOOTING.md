@@ -12,6 +12,7 @@ This error occurs because the frontend application needs to connect to a backend
    - A server running on a cloud platform (AWS, Google Cloud, Azure, etc.)
    - A service like Render, Heroku, or Railway
    - A self-hosted server
+   - **For local testing**: Run the example backend locally (see below)
 
 2. **Configure the API URL**:
    - After deploying your frontend to GitHub Pages
@@ -19,7 +20,13 @@ This error occurs because the frontend application needs to connect to a backend
    - In the "API Configuration" section, enter the URL of your backend API
    - Click "Save URL"
 
-3. **Backend Requirements**:
+3. **Local Backend for Testing**:
+   - Install dependencies: `pip install fastapi uvicorn python-multipart`
+   - Run the backend: `uvicorn example_backend:app --reload`
+   - The backend will run on `http://localhost:8000`
+   - Configure the frontend to use this URL
+
+4. **Backend Requirements**:
    Your backend API must implement these endpoints:
    - `POST /auth/register` - User registration
    - `POST /auth/login` - User login
@@ -30,8 +37,9 @@ This error occurs because the frontend application needs to connect to a backend
    - `POST /borrows/borrow` - Borrow a book
    - `POST /borrows/return` - Return a book
    - `GET /borrows/reader/{reader_id}/borrowed` - Get borrowed books for a reader
+   - `GET /borrows/borrowed` - Get all borrowed books
 
-4. **CORS Configuration**:
+5. **CORS Configuration**:
    Make sure your backend allows Cross-Origin Resource Sharing (CORS) from your GitHub Pages domain:
    ```
    Access-Control-Allow-Origin: https://yourusername.github.io
