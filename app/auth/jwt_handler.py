@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+import bcrypt
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
@@ -9,17 +9,20 @@ from .. import models, schemas
 from ..database import get_db
 from ..config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-# Password hashing context
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Security scheme for API documentation
-security = HTTPBearer()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    # Truncate plain password to 72 characters to comply with bcrypt limits
+    truncated_password = plain_password[:72].encode('utf-8')
+    hashed_bytes = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(truncated_password, hashed_bytes)
+
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    # Truncate password to 72 characters to comply with bcrypt limits
+    truncated_password = password[:72].encode('utf-8')
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(truncated_password, salt)
+    return hashed.decode('utf-8')
 
 def authenticate_user(db: Session, email: str, password: str) -> Optional[models.User]:
     user = db.query(models.User).filter(models.User.email == email).first()
@@ -36,6 +39,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+# Security scheme for API documentation
+security = HTTPBearer()
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
