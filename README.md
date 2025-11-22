@@ -2,17 +2,6 @@
 
 This is a frontend-only demo of the Library Management System that can be deployed on GitHub Pages. It connects to a backend API to provide full functionality for managing books, readers, and borrowing operations.
 
-**⚠️ ВАЖНО: Для полноценной работы приложения требуется отдельный backend-сервер.**
-
-## Quick Start
-
-If you want to quickly test the application functionality:
-
-1. **For immediate testing**: Follow the [Quick Start Guide](QUICK_START.md) to run both frontend and backend locally
-2. **For deployment**: Deploy the frontend to GitHub Pages and backend to a separate server
-3. **For beginners**: Follow the [Setup Instructions](SETUP_INSTRUCTIONS.md) for a step-by-step guide to get the system running quickly
-4. **Для русскоязычных пользователей**: См. [Быстрый старт на русском языке](QUICK_START_RU.md) для подробных инструкций на русском языке
-
 ## Features
 
 - User authentication (register/login/logout)
@@ -47,68 +36,18 @@ The API URL can be configured and saved in the browser's localStorage. This allo
 
 ## Local Development
 
-To test locally, you have multiple options:
-
-### Option 1: Full Application (Recommended)
-To run the complete application with both frontend and backend:
-
-1. **Start the backend server**:
-   ```bash
-   # Install dependencies first
-   pip install fastapi uvicorn python-multipart
-   
-   # Run the backend
-   uvicorn example_backend:app --reload
-   ```
-   The backend will run on `http://localhost:8000`
-
-2. **In a new terminal, start the frontend server**:
-   ```bash
-   python start_server.py
-   ```
-   The frontend will run on `http://localhost:8080`
-
-3. **Configure the API URL**:
-   - Open `http://localhost:8080` in your browser
-   - Go to the "API Configuration" section
-   - Enter `http://localhost:8000` as the API URL
-   - Click "Save URL"
-   - Now you can register/login and use all features
-
-For detailed instructions, see [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md).
-
-### Option 2: Frontend Only
-If you only want to test the frontend interface:
+To test locally, you can run a simple HTTP server:
 
 ```bash
-python start_server.py
+cd docs
+python -m http.server 8000
 ```
 
-Then open `http://localhost:8080` in your browser.
-
-> Note: The provided start_server.py script enables CORS headers which might be helpful during development.
+Then open `http://localhost:8000` in your browser.
 
 ## Backend Integration
 
 This frontend is designed to work with a FastAPI backend that implements the Library Management System API. The backend should provide JWT-based authentication and implement all the endpoints referenced in the JavaScript code.
-
-### Deploying a Backend Server
-
-Since GitHub Pages is a static hosting service, you need to deploy your backend to a separate server. You can:
-
-1. **Deploy to Render.com** - Follow the instructions in [DEPLOY_BACKEND.md](DEPLOY_BACKEND.md) for the easiest deployment option
-2. **Use the example backend** - An example implementation is provided in `example_backend.py`
-3. **Deploy elsewhere** - You can deploy to Heroku, Railway, AWS, or any other cloud platform
-
-After deploying your backend, configure the API URL in the frontend application through the "API Configuration" section.
-
-## Troubleshooting
-
-If you encounter the error "Login failed: NetworkError when attempting to fetch resource", please refer to the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) file for detailed instructions on how to resolve this issue.
-
-You can also check our [FAQ.md](FAQ.md) for answers to frequently asked questions.
-
-The most common cause is that GitHub Pages is a static hosting service and cannot handle API requests directly. You need to deploy a separate backend service and configure the API URL in the frontend application.
 
 ## Technologies Used
 
@@ -117,15 +56,6 @@ The most common cause is that GitHub Pages is a static hosting service and canno
 - JavaScript (ES6+)
 - Font Awesome (icons)
 - GitHub Pages (deployment)
-
-## Running a Backend Server
-
-To use all features of this application, you need to run a backend server. Multiple options are available:
-
-1. **For local development**: Follow the instructions in [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md) to run both frontend and backend locally
-2. **For deployment**: Use [DEPLOY_BACKEND.md](DEPLOY_BACKEND.md) for instructions on deploying to Render.com or other platforms
-3. **Example implementation**: An example backend is provided in `example_backend.py`
-4. **Requirements**: Your backend must implement all the endpoints referenced in the JavaScript code
 
 ## Deployment
 
