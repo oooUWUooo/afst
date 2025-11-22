@@ -1,0 +1,21 @@
+{
+  "name": "library-management-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the Library Management System that can be deployed on GitHub Pages",
+  "main": "index.html",
+  "scripts": {
+    "start": "python start_server.py",
+    "dev": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "library",
+    "management",
+    "frontend",
+    "github-pages"
+  ],
+  "author": "Library Management System",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
