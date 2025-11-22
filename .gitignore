@@ -1,33 +1,25 @@
-```
-# Backup files
-*.backup
+```gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Logs and temp files
-*.log
-*.tmp
-*.swp
+# Database
+*.db
+*.db-journal
 
 # Environment
 .env
 .env.local
-.env.*
+*.env.*
 
-# Editors
+# Logs
+*.log
+
+# IDE
 .vscode/
 .idea/
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-venv/
-.venv/
-.env
-.env.local
-
-# Build directories
-build/
-dist/
+*.swp
+*.swo
+*.tmp
 ```
