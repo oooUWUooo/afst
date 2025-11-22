@@ -4,13 +4,18 @@
 
 **A**: This error occurs because the frontend application is trying to connect to a backend API server, but GitHub Pages is a static hosting service that cannot handle API requests directly. To fix this:
 
-1. Deploy a backend server that implements the required API endpoints
-2. Configure the API URL in the frontend application:
-   - Go to your deployed GitHub Pages site
+1. Deploy a backend server that implements the required API endpoints, OR
+2. Run the example backend locally for testing:
+   - Install dependencies: `pip install fastapi uvicorn python-multipart`
+   - Run the backend: `uvicorn example_backend:app --reload`
+   - The backend will run on `http://localhost:8000`
+
+3. Configure the API URL in the frontend application:
+   - Go to your deployed GitHub Pages site (or local frontend)
    - Find the "API Configuration" section
-   - Enter your backend server URL (e.g., `https://your-backend.herokuapp.com`)
+   - Enter your backend server URL (e.g., `http://localhost:8000` for local, or `https://your-backend.herokuapp.com` for deployed)
    - Click "Save URL"
-3. Now you can register/login and use the application
+4. Now you can register/login and use the application
 
 ## Q: Where can I find the backend implementation?
 

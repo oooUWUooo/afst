@@ -11,6 +11,7 @@ To run this example:
 """
 
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 from datetime import datetime, timedelta
@@ -18,6 +19,15 @@ import json
 import uuid
 
 app = FastAPI(title="Library Management System API", version="1.0.0")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify exact origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Simple in-memory storage for demonstration purposes
 users_db: Dict[str, dict] = {}

@@ -2,6 +2,13 @@
 
 This is a frontend-only demo of the Library Management System that can be deployed on GitHub Pages. It connects to a backend API to provide full functionality for managing books, readers, and borrowing operations.
 
+## Quick Start
+
+If you want to quickly test the application functionality:
+
+1. **For immediate testing**: Follow the [Quick Start Guide](QUICK_START.md) to run both frontend and backend locally
+2. **For deployment**: Deploy the frontend to GitHub Pages and backend to a separate server
+
 ## Features
 
 - User authentication (register/login/logout)
@@ -36,28 +43,60 @@ The API URL can be configured and saved in the browser's localStorage. This allo
 
 ## Local Development
 
-To test locally, you have two options:
+To test locally, you have multiple options:
 
-### Option 1: Using the provided script
-Run the local server script included in this repository:
+### Option 1: Full Application (Recommended)
+To run the complete application with both frontend and backend:
+
+1. **Start the backend server**:
+   ```bash
+   # Install dependencies first
+   pip install fastapi uvicorn python-multipart
+   
+   # Run the backend
+   uvicorn example_backend:app --reload
+   ```
+   The backend will run on `http://localhost:8000`
+
+2. **In a new terminal, start the frontend server**:
+   ```bash
+   python start_server.py
+   ```
+   The frontend will run on `http://localhost:8080`
+
+3. **Configure the API URL**:
+   - Open `http://localhost:8080` in your browser
+   - Go to the "API Configuration" section
+   - Enter `http://localhost:8000` as the API URL
+   - Click "Save URL"
+   - Now you can register/login and use all features
+
+For detailed instructions, see [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md).
+
+### Option 2: Frontend Only
+If you only want to test the frontend interface:
+
 ```bash
 python start_server.py
 ```
 
 Then open `http://localhost:8080` in your browser.
 
-### Option 2: Using Python's built-in server
-```bash
-python -m http.server 8000
-```
-
-Then open `http://localhost:8000` in your browser.
-
 > Note: The provided start_server.py script enables CORS headers which might be helpful during development.
 
 ## Backend Integration
 
 This frontend is designed to work with a FastAPI backend that implements the Library Management System API. The backend should provide JWT-based authentication and implement all the endpoints referenced in the JavaScript code.
+
+### Deploying a Backend Server
+
+Since GitHub Pages is a static hosting service, you need to deploy your backend to a separate server. You can:
+
+1. **Deploy to Render.com** - Follow the instructions in [DEPLOY_BACKEND.md](DEPLOY_BACKEND.md) for the easiest deployment option
+2. **Use the example backend** - An example implementation is provided in `example_backend.py`
+3. **Deploy elsewhere** - You can deploy to Heroku, Railway, AWS, or any other cloud platform
+
+After deploying your backend, configure the API URL in the frontend application through the "API Configuration" section.
 
 ## Troubleshooting
 
@@ -77,7 +116,12 @@ The most common cause is that GitHub Pages is a static hosting service and canno
 
 ## Running a Backend Server
 
-To use all features of this application, you need to run a backend server. An example backend implementation is provided in `example_backend.py` with instructions in `RUNNING_BACKEND.md`.
+To use all features of this application, you need to run a backend server. Multiple options are available:
+
+1. **For local development**: Follow the instructions in [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md) to run both frontend and backend locally
+2. **For deployment**: Use [DEPLOY_BACKEND.md](DEPLOY_BACKEND.md) for instructions on deploying to Render.com or other platforms
+3. **Example implementation**: An example backend is provided in `example_backend.py`
+4. **Requirements**: Your backend must implement all the endpoints referenced in the JavaScript code
 
 ## Deployment
 
