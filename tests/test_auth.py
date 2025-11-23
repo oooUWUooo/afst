@@ -51,11 +51,11 @@ def test_user_login():
     )
     assert register_response.status_code == 200
     
-    # Then try to login
+    # Then try to login - using form data format to match OAuth2PasswordRequestForm
     login_response = client.post(
         "/auth/login",
-        json={
-            "email": "login@example.com",
+        data={
+            "username": "login@example.com",  # Use 'username' field instead of 'email'
             "password": "password123"
         }
     )
@@ -68,8 +68,8 @@ def test_login_invalid_credentials():
     """Test login with invalid credentials"""
     login_response = client.post(
         "/auth/login",
-        json={
-            "email": "nonexistent@example.com",
+        data={
+            "username": "nonexistent@example.com",
             "password": "wrongpassword"
         }
     )
@@ -101,8 +101,8 @@ def test_protected_endpoint_with_token():
     
     login_response = client.post(
         "/auth/login",
-        json={
-            "email": "protected@example.com",
+        data={
+            "username": "protected@example.com",
             "password": "password123"
         }
     )

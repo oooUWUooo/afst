@@ -90,8 +90,8 @@ def auth_token(client, test_user):
     """
     login_response = client.post(
         "/auth/login",
-        json={
-            "email": test_user["email"],
+        data={
+            "username": test_user["email"],
             "password": test_user["password"]
         }
     )
