@@ -35,3 +35,4 @@ isort==5.12.0        # Сортировка импортов
 # Опционально для CI/CD
 pytest-html==4.1.1   # HTML отчеты для pytest
 pytest-xdist==3.5.0  # Параллельный запуск тестов
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
